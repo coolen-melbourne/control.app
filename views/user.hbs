@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+   <style>
+        /* ============ GLOBAL STYLES ============ */
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #60a5fa;
+            --secondary-color: #10b981;
+            --secondary-dark: #059669;
+            --danger-color: #ef4444;
+            --danger-dark: #dc2626;
+            --warning-color: #f59e0b;
+            --dark-color: #1e293b;
+            --medium-color: #475569;
+            --light-color: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --transition-fast: 0.2s ease;
+            --transition-medium: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--dark-color);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* ============ NAVIGATION ============ */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: var(--radius-md);
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* ============ CONTAINER & LAYOUT ============ */
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(350px, 400px) 1fr;
+            gap: 24px;
+            min-height: calc(100vh - 160px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            
+            .container {
+                gap: 16px;
+            }
+        }
+
+        /* ============ CONTROL PANEL ============ */
+        .control-panel {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            height: fit-content;
+            transition: all var(--transition-medium);
+        }
+
+        .header {
+            margin-bottom: 28px;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .header p {
+            color: var(--medium-color);
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 0.95rem;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+            background: white;
+            color: var(--dark-color);
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            transform: translateY(-1px);
+        }
+
+        /* ============ BUTTONS ============ */
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 16px 20px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                min-width: auto;
+            }
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--medium-color);
+            border: 1.5px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-color);
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-color) 0%, var(--danger-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        /* ============ HISTORY SECTION ============ */
+        .history-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 0;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .history-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--border-color);
+            background: white;
+        }
+
+        .history-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 6px;
+        }
+
+        .history-header p {
+            color: var(--medium-color);
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .history-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .history-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 18px;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: white;
+            color: var(--medium-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .filter-btn:hover:not(.active) {
+            background: var(--light-color);
+            border-color: #cbd5e1;
+        }
+
+        .history-info {
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 0.95rem;
+        }
+
+        /* ============ HISTORY TABLE ============ */
+        .history-table-container {
+            flex: 1;
+            overflow: auto;
+            padding: 0 28px 28px;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 16px;
+            min-width: 800px;
+        }
+
+        .history-table thead {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+        }
+
+        .history-table th {
+            background: var(--light-color);
+            padding: 16px 18px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--medium-color);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        .history-table tbody tr {
+            transition: all var(--transition-fast);
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .history-table tbody tr:hover {
+            background: var(--light-color);
+            transform: translateX(2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .history-table td {
+            padding: 18px;
+            font-size: 0.95rem;
+            color: var(--medium-color);
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+
+        .history-table td:first-child {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        @media (max-width: 768px) {
+            .history-table-container {
+                padding: 0 16px 16px;
+            }
+            
+            .history-header {
+                padding: 20px;
+            }
+            
+            .history-table td {
+                padding: 14px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ============ ACTION BUTTONS ============ */
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 8px 14px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .edit-btn {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary-dark);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .edit-btn:hover {
+            background: rgba(16, 185, 129, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .delete-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-dark);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* ============ STATUS BADGES ============ */
+        .status-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .status-added {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary-dark);
+        }
+
+        .status-updated {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-dark);
+        }
+
+        .status-deleted {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-dark);
+        }
+
+        /* ============ EMPTY HISTORY ============ */
+        .empty-history {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94a3b8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .empty-history i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.4;
+        }
+
+        .empty-history h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--medium-color);
+        }
+
+        .empty-history p {
+            font-size: 1rem;
+            max-width: 400px;
+            line-height: 1.5;
+        }
+
+        /* ============ MODAL ============ */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+            animation: modalSlide 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            margin-bottom: 24px;
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+        }
+
+        .modal-header p {
+            color: var(--medium-color);
+            font-size: 1rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 24px;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+            
+            .modal-buttons .btn {
+                width: 100%;
+            }
+        }
+
+        /* ============ NOTIFICATION ============ */
+        .notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: white;
+            color: var(--dark-color);
+            padding: 18px 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 9999;
+            transform: translateX(150%);
+            transition: transform var(--transition-medium);
+            max-width: 400px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .notification-content h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .notification-content p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .notification {
+                top: 20px;
+                right: 20px;
+                left: 20px;
+                max-width: calc(100% - 40px);
+            }
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--medium-color);
+            font-size: 0.95rem;
+            padding: 20px 0;
+        }
+
+        .footer span {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* ============ LOADING SPINNER ============ */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ============ PRINT STYLES ============ */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .control-panel, .history-filters, .action-buttons, .footer, .btn, .nav {
+                display: none !important;
+            }
+            
+            .history-section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="nav">
+        <a href="/user" class="nav-btn active">
+            <i class="fas fa-tachometer-alt"></i> Nazorat Paneli
+        </a>
+        <a href="/grafik" class="nav-btn">
+            <i class="fas fa-chart-bar"></i> Grafik
+        </a>
+        <a href="/database" class="nav-btn">
+            <i class="fas fa-database"></i> Ma'lumotlar Bazasi
+        </a>
+    </div>
+
+    <div class="container">
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="header">
+                <h1>Tikuv jarayonini nazorati</h1>
+                <p>Bandlar va parametrlarni boshqarish paneli</p>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Kerakli bandni tanlang</label>
+                <select id="bandSelect">
+                    <option value="" selected disabled>Bandni tanlang</option>
+                    <option value="1-band">1-band</option>
+                    <option value="2-band">2-band</option>
+                    <option value="3-band">3-band</option>
+                    <option value="4-band">4-band</option>
+                    <option value="5-band">5-band</option>
+                    <option value="6-band">6-band</option>
+                    <option value="7-band">7-band</option>
+                    <option value="8-band">8-band</option>
+                    <option value="9-band">9-band</option>
+                    <option value="10-band">10-band</option>
+                    <option value="11-band">11-band</option>
+                    <option value="12-band">12-band</option>
+                    <option value="13-band">13-band</option>
+                    <option value="14-band">14-band</option>
+                    <option value="Dazmol bandi">Dazmol bandi</option>
+                    <option value="Upakovka bandi">Upakovka bandi</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Miqdor (son) kiriting</label>
+                <input type="number" id="quantityInput" placeholder="Miqdorni kiriting" min="1" max="9999">
+            </div>
+
+            <div class="buttons">
+                <button id="saveBtn" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Saqlash
+                </button>
+                <button id="editBtn" class="btn btn-edit" style="display: none;">
+                    <i class="fas fa-edit"></i>
+                    Yangilash
+                </button>
+                <button id="cancelBtn" class="btn btn-secondary">
+                    <i class="fas fa-times"></i>
+                    Bekor qilish
+                </button>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div class="history-section">
+            <div class="history-header">
+                <h2>Operatsiyalar tarixi</h2>
+                <p>Barcha operatsiyalar va o'zgarishlar tarixi</p>
+                
+                <div class="history-controls">
+                    <div class="history-filters">
+                        <button class="filter-btn active" data-filter="all">Hammasi</button>
+                        <button class="filter-btn" data-filter="added">Qo'shilgan</button>
+                        <button class="filter-btn" data-filter="updated">Yangilangan</button>
+                        <button class="filter-btn" data-filter="deleted">O'chirilgan</button>
+                    </div>
+                    <div class="history-info">
+                        <span id="totalCount">{{history.length}} ta yozuv</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-table-container">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Vaqt</th>
+                            <th>Band</th>
+                            <th>Miqdor</th>
+                            <th>Holat</th>
+                            <th>Operatsiya</th>
+                            <th>Harakatlar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                        {{#each history}}
+                        <tr>
+                            <td>{{@index}}</td>
+                            <td>{{this.date}}<br><small>{{this.time}}</small></td>
+                            <td>{{this.band}}</td>
+                            <td><strong>{{this.quantity}} ta</strong></td>
+                            <td>
+                                {{#if (eq this.status 'added')}}
+                                <span class="status-badge status-added">Qo'shildi</span>
+                                {{else if (eq this.status 'updated')}}
+                                <span class="status-badge status-updated">Yangilandi</span>
+                                {{else if (eq this.status 'deleted')}}
+                                <span class="status-badge status-deleted">O'chirildi</span>
+                                {{/if}}
+                            </td>
+                            <td>{{this.operation}}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn edit-btn" onclick="editHistory('{{this._id}}')">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="action-btn delete-btn" onclick="showDeleteModal('{{this._id}}')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+
+                {{#unless history.length}}
+                <div id="emptyHistory" class="empty-history">
+                    <i class="fas fa-history"></i>
+                    <h3>Hozircha tarix mavjud emas</h3>
+                    <p>Birinchi operatsiyani bajarish uchun formani to'ldiring</p>
+                </div>
+                {{/unless}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>O'chirishni tasdiqlash</h3>
+                <p>Ushbu yozuvni o'chirishga ishonchingiz komilmi?</p>
+            </div>
+            <div id="modalMessage"></div>
+            <div class="modal-buttons">
+                <button id="confirmDeleteBtn" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                    O'chirish
+                </button>
+                <button id="cancelDeleteBtn" class="btn btn-secondary">
+                    <i class="fas fa-times"></i>
+                    Bekor qilish
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i>
+        <div class="notification-content">
+            <h4 id="notificationTitle">Muvaffaqiyatli</h4>
+            <p id="notificationMessage">Operatsiya muvaffaqiyatli bajarildi</p>
+        </div>
+    </div>
+
+    <div class="footer">
+       created by <span>Makhmudov</span> • Vaqt: <span id="currentTime"></span>
+    </div>
+
+    <script>
+        // Serverdan kelgan ma'lumotlarni JavaScript obyektiga aylantirish
+        let history = [
+            {{#each history}}
+            {
+                _id: '{{this._id}}',
+                band: '{{this.band}}',
+                quantity: {{this.quantity}},
+                status: '{{this.status}}',
+                operation: '{{this.operation}}',
+                date: '{{this.date}}',
+                time: '{{this.time}}'
+            }{{#unless @last}},{{/unless}}
+            {{/each}}
+        ];
+
+        // Agar history bo'sh bo'lsa
+        if (history.length === 1 && !history[0]._id) {
+            history = [];
+        }
+
+        let currentEditId = null;
+        let currentDeleteId = null;
+
+        // DOM elementlari
+        const bandSelect = document.getElementById('bandSelect');
+        const quantityInput = document.getElementById('quantityInput');
+        const saveBtn = document.getElementById('saveBtn');
+        const editBtn = document.getElementById('editBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const historyBody = document.getElementById('historyBody');
+        const emptyHistory = document.getElementById('emptyHistory');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const totalCount = document.getElementById('totalCount');
+        const deleteModal = document.getElementById('deleteModal');
+        const modalMessage = document.getElementById('modalMessage');
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+        const currentTime = document.getElementById('currentTime');
+        const notification = document.getElementById('notification');
+        const notificationTitle = document.getElementById('notificationTitle');
+        const notificationMessage = document.getElementById('notificationMessage');
+
+        // Vaqtni yangilash
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('uz-UZ', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            const dateString = now.toLocaleDateString('uz-UZ', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+            currentTime.textContent = `${dateString} ${timeString}`;
+        }
+
+        // Notification ko'rsatish
+        function showNotification(title, message, type = 'success') {
+            notificationTitle.textContent = title;
+            notificationMessage.textContent = message;
+            
+            const icon = notification.querySelector('i');
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle';
+                icon.style.color = '#10b981';
+                notification.style.borderLeftColor = '#10b981';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-circle';
+                icon.style.color = '#ef4444';
+                notification.style.borderLeftColor = '#ef4444';
+            } else if (type === 'warning') {
+                icon.className = 'fas fa-exclamation-triangle';
+                icon.style.color = '#f59e0b';
+                notification.style.borderLeftColor = '#f59e0b';
+            } else if (type === 'info') {
+                icon.className = 'fas fa-info-circle';
+                icon.style.color = '#3b82f6';
+                notification.style.borderLeftColor = '#3b82f6';
+            }
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        // Tarixni chiqarish
+        function renderHistory(filter = 'all') {
+            const filteredHistory = filter === 'all' 
+                ? history 
+                : history.filter(item => item.status === filter);
+
+            historyBody.innerHTML = '';
+
+            if (filteredHistory.length === 0) {
+                if (emptyHistory) emptyHistory.style.display = 'flex';
+            } else {
+                if (emptyHistory) emptyHistory.style.display = 'none';
+                
+                filteredHistory.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    
+                    let statusBadge = '';
+                    if (item.status === 'added') {
+                        statusBadge = '<span class="status-badge status-added">Qo\'shildi</span>';
+                    } else if (item.status === 'updated') {
+                        statusBadge = '<span class="status-badge status-updated">Yangilandi</span>';
+                    } else if (item.status === 'deleted') {
+                        statusBadge = '<span class="status-badge status-deleted">O\'chirildi</span>';
+                    }
+
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.date}<br><small>${item.time}</small></td>
+                        <td>${item.band}</td>
+                        <td><strong>${item.quantity} ta</strong></td>
+                        <td>${statusBadge}</td>
+                        <td>${item.operation}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn edit-btn" onclick="editHistory('${item._id}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="action-btn delete-btn" onclick="showDeleteModal('${item._id}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    
+                    historyBody.appendChild(row);
+                });
+            }
+
+            totalCount.textContent = `${filteredHistory.length} ta yozuv`;
+        }
+
+        // Filter tugmalari
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                const filter = button.getAttribute('data-filter');
+                renderHistory(filter);
+            });
+        });
+
+        // Saqlash (API orqali)
+        saveBtn.addEventListener('click', async () => {
+            const band = bandSelect.value;
+            const quantity = quantityInput.value.trim();
+
+            if (!band) {
+                showNotification('Xatolik', 'Iltimos, bandni tanlang!', 'warning');
+                bandSelect.focus();
+                return;
+            }
+
+            if (!quantity || isNaN(quantity) || quantity < 1) {
+                showNotification('Xatolik', 'Iltimos, to\'g\'ri miqdor kiriting!', 'warning');
+                quantityInput.focus();
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ band, quantity })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Yangi ma'lumotni history ga qo'shish
+                    history.unshift(result.data);
+                    renderHistory();
+                    resetForm();
+                    
+                    // Grafikni yangilash uchun serverga so'rov yuborish
+                    fetch('/api/grafik-data')
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log('Grafik ma\'lumotlari yangilandi:', data);
+                        })
+                        .catch(err => console.error('Grafik yangilashda xatolik:', err));
+                    
+                    showNotification('Muvaffaqiyatli', 
+                        `${result.data.band} uchun ${result.data.quantity} ta ish qo'shildi`, 
+                        'success');
+                } else {
+                    showNotification('Xatolik', result.message, 'error');
+                }
+            } catch (error) {
+                console.error(error);
+                showNotification('Xatolik', 'Server bilan aloqa xatosi', 'error');
+            }
+        });
+
+        // Edit tugmasi
+        function editHistory(id) {
+            const entry = history.find(item => item._id === id);
+            if (!entry) return;
+
+            // Formani to'ldirish
+            const bandOptions = Array.from(bandSelect.options);
+            const optionIndex = bandOptions.findIndex(option => option.value === entry.band);
+            if (optionIndex !== -1) {
+                bandSelect.selectedIndex = optionIndex;
+            }
+
+            quantityInput.value = entry.quantity;
+            currentEditId = id;
+
+            // Tugmalarni almashtirish
+            saveBtn.style.display = 'none';
+            editBtn.style.display = 'flex';
+            
+            showNotification('Tahrirlash', 'Yozuvni tahrirlash rejimidasiz', 'info');
+        }
+
+        // Yangilash (API orqali)
+        editBtn.addEventListener('click', async () => {
+            if (!currentEditId) return;
+
+            const quantity = quantityInput.value.trim();
+            if (!quantity || isNaN(quantity) || quantity < 1) {
+                showNotification('Xatolik', 'Iltimos, to\'g\'ri miqdor kiriting!', 'warning');
+                quantityInput.focus();
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/update/${currentEditId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ quantity })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    // History ni yangilash
+                    const index = history.findIndex(item => item._id === currentEditId);
+                    if (index !== -1) {
+                        history[index] = result.data;
+                    }
+                    renderHistory();
+                    resetForm();
+                    
+                    // Grafikni yangilash
+                    fetch('/api/grafik-data')
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log('Grafik ma\'lumotlari yangilandi:', data);
+                        })
+                        .catch(err => console.error('Grafik yangilashda xatolik:', err));
+                    
+                    showNotification('Yangilandi', 
+                        `${result.data.band} miqdori yangilandi`, 
+                        'success');
+                } else {
+                    showNotification('Xatolik', result.message, 'error');
+                }
+            } catch (error) {
+                console.error(error);
+                showNotification('Xatolik', 'Yangilashda xatolik', 'error');
+            }
+        });
+
+        // O'chirish modalini ko'rsatish
+        function showDeleteModal(id) {
+            const entry = history.find(item => item._id === id);
+            if (!entry) return;
+
+            currentDeleteId = id;
+            modalMessage.innerHTML = `
+                <div style="background: #f8fafc; padding: 16px; border-radius: 8px; margin: 16px 0;">
+                    <p><strong>Band:</strong> ${entry.band}</p>
+                    <p><strong>Miqdor:</strong> ${entry.quantity} ta</p>
+                    <p><strong>Sana:</strong> ${entry.date} ${entry.time}</p>
+                </div>
+            `;
+            
+            deleteModal.style.display = 'flex';
+        }
+
+        // O'chirishni tasdiqlash (API orqali)
+        confirmDeleteBtn.addEventListener('click', async () => {
+            if (!currentDeleteId) return;
+
+            try {
+                const response = await fetch(`/api/delete/${currentDeleteId}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    // History ni yangilash
+                    const index = history.findIndex(item => item._id === currentDeleteId);
+                    if (index !== -1) {
+                        history[index] = result.data;
+                    }
+                    renderHistory();
+                    deleteModal.style.display = 'none';
+                    
+                    // Grafikni yangilash
+                    fetch('/api/grafik-data')
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log('Grafik ma\'lumotlari yangilandi:', data);
+                        })
+                        .catch(err => console.error('Grafik yangilashda xatolik:', err));
+                    
+                    showNotification('O\'chirildi', 
+                        `${result.data.band} yozuvi o'chirildi`, 
+                        'success');
+                } else {
+                    showNotification('Xatolik', result.message, 'error');
+                }
+            } catch (error) {
+                console.error(error);
+                showNotification('Xatolik', 'O\'chirishda xatolik', 'error');
+            }
+        });
+
+        // O'chirishni bekor qilish
+        cancelDeleteBtn.addEventListener('click', () => {
+            deleteModal.style.display = 'none';
+            currentDeleteId = null;
+        });
+
+        // Bekor qilish
+        cancelBtn.addEventListener('click', () => {
+            resetForm();
+            showNotification('Bekor qilindi', 'Tahrirlash bekor qilindi', 'info');
+        });
+
+        // Formani tozalash
+        function resetForm() {
+            bandSelect.selectedIndex = 0;
+            quantityInput.value = '';
+            currentEditId = null;
+            saveBtn.style.display = 'flex';
+            editBtn.style.display = 'none';
+        }
+
+        // Modalni yopish
+        window.addEventListener('click', (e) => {
+            if (e.target === deleteModal) {
+                deleteModal.style.display = 'none';
+            }
+        });
+
+        // Klaviatura yordamida modalni yopish
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && deleteModal.style.display === 'flex') {
+                deleteModal.style.display = 'none';
+            }
+        });
+
+        // Dasturni boshlash
+        document.addEventListener('DOMContentLoaded', () => {
+            updateTime();
+            setInterval(updateTime, 1000);
+            renderHistory();
+            
+            // Sahifa yangilanganida ma'lumotlarni yangilash
+            setInterval(() => {
+                fetch('/api/data')
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            history = data.data;
+                            renderHistory();
+                        }
+                    })
+                    .catch(err => console.error('Ma\'lumotlarni yangilashda xatolik:', err));
+            }, 30000); // Har 30 sekundda yangilash
+        });
+
+        // Sayt yuklanganida animatsiya
+        window.addEventListener('load', () => {
+            document.body.style.transition = 'opacity 0.3s';
+            document.body.style.opacity = '1';
+        });
+    </script>
+</body>
+</html>

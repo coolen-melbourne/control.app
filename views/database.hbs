@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #3b82f6;
+            border-radius: 12px;
+            color: #3b82f6;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #1e293b;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        th {
+            background: #f1f5f9;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-added {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .status-updated {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+        }
+
+        .status-deleted {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+        }
+
+        .footer span {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            th, td {
+                padding: 12px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="nav">
+        <a href="/user" class="nav-btn">
+            <i class="fas fa-tachometer-alt"></i> Nazorat Paneli
+        </a>
+        <a href="/grafik" class="nav-btn">
+            <i class="fas fa-chart-bar"></i> Grafik
+        </a>
+        <a href="/database" class="nav-btn active">
+            <i class="fas fa-database"></i> Ma'lumotlar Bazasi
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Ma'lumotlar Bazasi</h1>
+            <p>Barcha tikuv operatsiyalari tarixi ({{data.length}} ta yozuv)</p>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Sana</th>
+                        <th>Vaqt</th>
+                        <th>Band</th>
+                        <th>Miqdor</th>
+                        <th>Holat</th>
+                        <th>Operatsiya</th>
+                        <th>Yaratilgan vaqt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr>
+                        <td>{{this._id}}</td>
+                        <td>{{this.date}}</td>
+                        <td>{{this.time}}</td>
+                        <td>{{this.band}}</td>
+                        <td><strong>{{this.quantity}} ta</strong></td>
+                        <td>
+                            {{#if (eq this.status 'added')}}
+                            <span class="status-badge status-added">Qo'shildi</span>
+                            {{else if (eq this.status 'updated')}}
+                            <span class="status-badge status-updated">Yangilandi</span>
+                            {{else if (eq this.status 'deleted')}}
+                            <span class="status-badge status-deleted">O'chirildi</span>
+                            {{/if}}
+                        </td>
+                        <td>{{this.operation}}</td>
+                        <td>{{formatDate this.createdAt}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            created by <span>Makhmudov</span> • Jami yozuvlar: <span>{{data.length}} ta</span>
+        </div>
+    </div>
+
+    <script>
+        // Sana formatlash funksiyasi
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleString('uz-UZ');
+        }
+
+        // Har bir satr uchun sanani formatlash
+        document.querySelectorAll('td:last-child').forEach(td => {
+            if (td.textContent.includes('T')) {
+                td.textContent = formatDate(td.textContent);
+            }
+        });
+    </script>
+</body>
+</html>
