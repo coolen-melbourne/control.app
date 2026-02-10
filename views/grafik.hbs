@@ -9,17 +9,14 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: background 0.3s ease;
+            padding: 20px;
+            transition: all 0.3s ease;
         }
 
         body.fullscreen {
@@ -29,26 +26,18 @@
 
         body.fullscreen .container {
             max-width: none;
-            padding: 0;
+            padding: 2rem;
             margin: 0;
-            height: 100vh;
         }
 
         body.fullscreen .chart-container {
             border-radius: 0;
-            height: 100vh;
+            height: calc(100vh - 4rem);
             padding: 2rem;
             margin: 0;
             box-shadow: none;
             border: none;
             overflow-y: auto;
-        }
-
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-            transition: all 0.3s ease;
         }
 
         .nav {
@@ -84,10 +73,16 @@
             color: white;
         }
 
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
         header {
             text-align: center;
-            margin-bottom: 2.5rem;
-            padding: 0 1rem;
+            margin-bottom: 30px;
+            padding: 0 20px;
         }
 
         body.fullscreen header {
@@ -97,7 +92,8 @@
         h1 {
             color: #2c3e50;
             font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
             background: linear-gradient(90deg, #2c3e50, #4a6491);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -107,19 +103,32 @@
         .subtitle {
             color: #7f8c8d;
             font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
             line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .target-info {
+            display: inline-block;
+            background: #f0f9ff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #0369a1;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .chart-container {
             background: white;
             border-radius: 16px;
-            padding: 2rem;
+            padding: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            margin-bottom: 2rem;
+            margin-bottom: 30px;
             transition: all 0.3s ease;
             position: relative;
         }
@@ -132,20 +141,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 30px;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 20px;
         }
 
         .chart-title {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: #2c3e50;
             font-weight: 600;
         }
 
         .chart-controls {
             display: flex;
-            gap: 1rem;
+            gap: 15px;
             align-items: center;
         }
 
@@ -153,14 +162,13 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 0.6rem 1.2rem;
+            padding: 10px 20px;
             border-radius: 8px;
-            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
@@ -182,31 +190,34 @@
 
         .legend {
             display: flex;
-            gap: 1rem;
+            gap: 20px;
             flex-wrap: wrap;
+            margin-top: 15px;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-            color: #555;
+            gap: 8px;
+            font-size: 14px;
+            color: #475569;
         }
 
         .legend-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 3px;
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
         }
 
         .chart-wrapper {
             position: relative;
-            overflow-x: auto;
-            padding: 1.5rem 1rem;
+            height: 400px;
+            padding: 20px 20px 20px 60px;
             background: #f8fafc;
             border-radius: 12px;
             border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+            overflow-x: auto;
             scrollbar-width: thin;
             scrollbar-color: #cbd5e0 #f1f5f9;
         }
@@ -225,24 +236,171 @@
             border-radius: 4px;
         }
 
-        .simple-bar-chart {
-            --line-count: 10;
-            --item-gap: 1.5rem;
-            --chart-height: 280px;
-
-            height: var(--chart-height);
-            display: grid;
-            grid-auto-flow: column;
-            grid-auto-columns: minmax(50px, 1fr);
-            gap: var(--item-gap);
-            align-items: end;
-            padding: 0.5rem;
-            position: relative;
-            min-width: min-content;
+        .chart-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
 
-        body.fullscreen .simple-bar-chart {
-            --chart-height: 400px;
+        .simple-bar-chart {
+            display: flex;
+            align-items: flex-end;
+            height: 100%;
+            gap: 15px;
+            min-width: min-content;
+            padding-right: 20px;
+        }
+
+        .chart-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            min-width: 70px;
+            position: relative;
+        }
+
+        .bar-container {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            position: relative;
+        }
+
+        .bar {
+            width: 50px;
+            background: linear-gradient(to top, var(--bar-color), color-mix(in srgb, var(--bar-color) 80%, white));
+            border-radius: 8px 8px 4px 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            animation: wave 2s ease-in-out infinite;
+            animation-delay: var(--animation-delay);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Tolqin animatsiyasi */
+        @keyframes wave {
+            0%, 100% {
+                height: calc(var(--bar-height) * 1%);
+                transform: translateY(0);
+            }
+            25% {
+                height: calc(var(--bar-height) * 1.02%);
+                transform: translateY(-1px);
+            }
+            50% {
+                height: calc(var(--bar-height) * 1.05%);
+                transform: translateY(-2px);
+            }
+            75% {
+                height: calc(var(--bar-height) * 1.02%);
+                transform: translateY(-1px);
+            }
+        }
+
+        .bar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            animation-play-state: paused;
+        }
+
+        .bar:hover::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 2px solid var(--bar-color);
+            border-radius: 10px;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .bar.winner {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar.winner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shine 2s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bar-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 12px;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 5;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .bar-value::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid var(--bar-color);
+        }
+
+        /* For high bars - show percentage inside bar */
+        .bar.high-percentage .bar-value {
+            top: 8px;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .bar.high-percentage .bar-value::after {
+            display: none;
+        }
+
+        /* For low bars - show percentage above bar */
+        .bar.low-percentage .bar-value {
+            top: -40px;
+        }
+
+        .bar-label {
+            margin-top: 15px;
+            font-weight: 600;
+            color: #475569;
+            text-align: center;
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 4px 2px;
         }
 
         .y-axis {
@@ -250,33 +408,22 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 40px;
+            width: 60px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 2rem 0;
-            font-size: 0.75rem;
+            padding: 20px 0;
+            font-size: 12px;
             color: #64748b;
             font-weight: 500;
         }
 
-        .y-line {
-            position: absolute;
-            left: 40px;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
-            background-size: calc((100% - var(--item-gap)) / var(--item-count, 8)) 1px;
-            pointer-events: none;
-        }
-
-        .y-line:nth-child(10n) {
-            background: #e2e8f0;
-        }
-
         .grid-lines {
             position: absolute;
-            inset: 2rem 0 0 40px;
+            top: 0;
+            left: 60px;
+            right: 0;
+            bottom: 0;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -289,139 +436,21 @@
             background: rgba(0, 0, 0, 0.08);
         }
 
-        .item {
-            height: calc(var(--val) * 1%);
-            background: linear-gradient(to top, var(--clr), color-mix(in srgb, var(--clr) 80%, white));
-            border-radius: 8px 8px 4px 4px;
-            position: relative;
-            animation: grow 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
-                       wave 3s ease-in-out infinite 0.8s;
-            transform-origin: bottom;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            animation-delay: calc(var(--i) * 0.1s);
-        }
-
-        /* Tolqin animatsiyasi */
-        @keyframes wave {
-            0%, 100% { height: calc(var(--val) * 1%); }
-            50% { height: calc((var(--val) + 5) * 1%); }
-        }
-
-        @keyframes grow {
-            from { 
-                height: 0;
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to { 
-                height: calc(var(--val) * 1%);
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
-            z-index: 10;
-            animation-play-state: paused;
-        }
-
-        .item:hover::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            border: 2px solid var(--clr);
-            border-radius: 10px;
-            opacity: 0.3;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-        }
-
-        .value {
-            position: absolute;
-            top: -28px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--clr);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            min-width: 40px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            z-index: 2;
-            opacity: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        .value::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 5px solid var(--clr);
-        }
-
-        /* For high bars - show percentage inside bar */
-        .item.high-percentage .value {
-            top: 8px;
-            color: white;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
-        }
-
-        .item.high-percentage .value::after {
-            display: none;
-        }
-
-        /* For low bars - show percentage above bar */
-        .item.low-percentage .value {
-            top: -28px;
-        }
-
-        .label {
-            position: absolute;
-            bottom: -35px;
-            width: 100%;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #475569;
-            text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding: 4px 2px;
-        }
-
         .chart-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1.5rem;
-            padding-top: 1rem;
+            margin-top: 30px;
+            padding-top: 20px;
             border-top: 1px solid #e2e8f0;
-            font-size: 0.9rem;
-            color: #64748b;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .stats {
             display: flex;
-            gap: 2rem;
+            gap: 30px;
+            flex-wrap: wrap;
         }
 
         .stat-item {
@@ -431,13 +460,14 @@
         }
 
         .stat-value {
-            font-size: 1.2rem;
+            font-size: 24px;
             font-weight: 700;
             color: #2c3e50;
+            margin-bottom: 5px;
         }
 
         .stat-label {
-            font-size: 0.8rem;
+            font-size: 14px;
             color: #94a3b8;
         }
 
@@ -471,8 +501,147 @@
             transform: scale(1.1);
         }
 
+        /* Top three badges */
+        .top-three-badge {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 12px;
+            z-index: 20;
+            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.5);
+            white-space: nowrap;
+            animation: bounce 1s infinite alternate;
+        }
+
+        .top-three-badge.second {
+            background: linear-gradient(45deg, #C0C0C0, #A0A0A0);
+            box-shadow: 0 3px 10px rgba(192, 192, 192, 0.5);
+        }
+
+        .top-three-badge.third {
+            background: linear-gradient(45deg, #CD7F32, #A0522D);
+            box-shadow: 0 3px 10px rgba(205, 127, 50, 0.5);
+        }
+
+        @keyframes bounce {
+            from { transform: translateX(-50%) translateY(0); }
+            to { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Monthly ranking section */
+        .monthly-ranking-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .ranking-cards {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .ranking-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .ranking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .ranking-card.first {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000;
+        }
+
+        .ranking-card.second {
+            background: linear-gradient(135deg, #C0C0C0 0%, #A0A0A0 100%);
+            color: #000;
+        }
+
+        .ranking-card.third {
+            background: linear-gradient(135deg, #CD7F32 0%, #A0522D 100%);
+            color: #fff;
+        }
+
+        .ranking-medal {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        .ranking-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ranking-band {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 15px 0;
+            color: inherit;
+        }
+
+        .ranking-quantity {
+            font-size: 36px;
+            font-weight: 900;
+            margin: 10px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .ranking-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .celebration-text {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #e63946;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(230, 57, 70, 0.1);
+            border-radius: 8px;
+            animation: pulseText 2s infinite;
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
         /* Responsive styles */
-        @media (max-width: 767px) {
+        @media (max-width: 768px) {
             body:not(.fullscreen) {
                 padding: 1rem;
             }
@@ -482,7 +651,7 @@
             }
             
             .chart-container {
-                padding: 1.5rem;
+                padding: 20px;
             }
             
             h1 {
@@ -501,59 +670,128 @@
             }
             
             .legend {
-                gap: 0.5rem;
+                gap: 10px;
+            }
+            
+            .chart-wrapper {
+                height: 350px;
+                padding: 15px 15px 15px 50px;
             }
             
             .simple-bar-chart {
-                --item-gap: 1rem;
-                --chart-height: 220px;
-                grid-auto-columns: minmax(40px, 1fr);
+                gap: 10px;
             }
             
-            body.fullscreen .simple-bar-chart {
-                --chart-height: 300px;
+            .chart-item {
+                min-width: 50px;
             }
             
-            .value {
-                font-size: 0.7rem;
-                padding: 3px 6px;
-                min-width: 35px;
-                top: -24px;
+            .bar {
+                width: 35px;
             }
             
-            .item.high-percentage .value {
+            .bar-value {
+                font-size: 11px;
+                padding: 4px 8px;
+                top: -35px;
+                min-width: 50px;
+            }
+            
+            .bar.high-percentage .bar-value {
                 top: 5px;
-                font-size: 0.65rem;
-                padding: 2px 4px;
+                font-size: 10px;
+                padding: 3px 6px;
             }
             
-            .item.low-percentage .value {
-                top: -24px;
+            .bar.low-percentage .bar-value {
+                top: -35px;
             }
             
-            .label {
-                font-size: 0.75rem;
-                bottom: -28px;
+            .bar-label {
+                font-size: 11px;
+                margin-top: 10px;
             }
             
             .stats {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 15px;
+            }
+            
+            .stat-value {
+                font-size: 20px;
             }
             
             .y-axis {
-                width: 30px;
-                font-size: 0.65rem;
+                width: 40px;
+                font-size: 10px;
             }
             
             .grid-lines {
-                left: 30px;
+                left: 40px;
+            }
+            
+            .ranking-card {
+                min-width: 100%;
+            }
+            
+            .top-three-badge {
+                font-size: 10px;
+                padding: 3px 8px;
+                top: -50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chart-wrapper {
+                height: 300px;
+                padding: 10px 10px 10px 40px;
+            }
+            
+            .bar {
+                width: 25px;
+            }
+            
+            .bar-value {
+                font-size: 9px;
+                padding: 2px 4px;
+                top: -30px;
+                min-width: 40px;
+            }
+            
+            .legend {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .ranking-card {
+                padding: 15px;
+            }
+            
+            .ranking-medal {
+                font-size: 36px;
+            }
+            
+            .ranking-title {
+                font-size: 16px;
+            }
+            
+            .ranking-band {
+                font-size: 22px;
+            }
+            
+            .ranking-quantity {
+                font-size: 28px;
             }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="marquee-wrapper">
+    <marquee behavior="scroll" direction="left" scrollamount="5">
+        🚧 Diqqat! Sayt test rejimida ishlamoqda 🚧
+    </marquee>
+</div>
     <div class="nav">
         <a href="/user" class="nav-btn">
             <i class="fas fa-tachometer-alt"></i> Nazorat Paneli
@@ -568,18 +806,36 @@
 
     <div class="container">
         <header>
-            <h1>Umumiy tikuv jarayonini avtomatik nazorat qilish</h1>
-            <p class="subtitle">Nazoratdan o'tkazilgan jarayonlar: Jami {{totalAll}} ta</p>
+            <h1>Umumiy tikuv jarayoni grafigi</h1>
+            <p class="subtitle">
+                Bugun: {{todayDate}} | 
+                Jami tikuv: <strong>{{totalTikuv}} ta</strong> | 
+                Dazmol: <strong>{{totalDazmol}} ta</strong> | 
+                Upakovka: <strong>{{totalUpakovka}} ta</strong> |
+                Umumiy: <strong>{{totalAll}} ta</strong>
+            </p>
+            <div class="target-info">
+                <i class="fas fa-info-circle"></i>
+                Kunlik maqsad: Tikuv bandlari - 1000 ta, Dazmol/Upakovka - 500 ta
+            </div>
         </header>
         
         <div class="chart-container">
             <div class="chart-header">
-                <h2 class="chart-title">Tikuv bandlari statistikasi</h2>
+                <h2 class="chart-title">Barcha bandlar statistikasi (Kunlik)</h2>
                 <div class="chart-controls">
                     <div class="legend">
                         <div class="legend-item">
-                            <div class="legend-color" style="background: #5EB344"></div>
-                            <span>Jami tikuv: {{totalAll}} ta</span>
+                            <div class="legend-color" style="background: #5EB344;"></div>
+                            <span>Tikuv bandlari (1000 ta maqsad)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #8B5CF6;"></div>
+                            <span>Dazmol bandi (500 ta maqsad)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #06B6D4;"></div>
+                            <span>Upakovka bandi (500 ta maqsad)</span>
                         </div>
                     </div>
                     <button class="fullscreen-btn" id="fullscreenBtn">
@@ -593,16 +849,12 @@
             
             <div class="chart-wrapper">
                 <div class="y-axis">
+                    <span>150%</span>
+                    <span>125%</span>
                     <span>100%</span>
-                    <span>90%</span>
-                    <span>80%</span>
-                    <span>70%</span>
-                    <span>60%</span>
+                    <span>75%</span>
                     <span>50%</span>
-                    <span>40%</span>
-                    <span>30%</span>
-                    <span>20%</span>
-                    <span>10%</span>
+                    <span>25%</span>
                     <span>0%</span>
                 </div>
                 
@@ -614,17 +866,30 @@
                     <div class="grid-line"></div>
                     <div class="grid-line"></div>
                     <div class="grid-line"></div>
-                    <div class="grid-line"></div>
-                    <div class="grid-line"></div>
-                    <div class="grid-line"></div>
                 </div>
                 
                 <div class="simple-bar-chart" style="--item-count: {{chartData.length}}">
                     {{#each chartData}}
-                    <div class="item" style="--clr:{{this.color}};--val:{{this.percentage}};--i:{{@index}}" 
-                         title="{{this.band}}: {{this.quantity}} ta ({{this.percentage}}%)">
-                        <div class="value">{{this.quantity}}ta</div>
-                        <div class="label">{{this.band}}</div>
+                    <div class="chart-item" data-band="{{this.band}}">
+                        <div class="bar-container">
+                            <div class="bar {{#if (gte this.percentage 30)}}high-percentage{{else}}low-percentage{{/if}}"
+                                 style="--bar-color: {{this.color}}; --bar-height: {{this.percentage}}; --animation-delay: {{@index}}0ms;"
+                                 title="{{this.band}}: {{this.quantity}} ta / Maqsad: {{this.target}} ta ({{this.percentage}}%)">
+                                {{#if (lookup ../monthlyRankingsByBand this.band)}}
+                                {{#with (lookup ../monthlyRankingsByBand this.band) as |ranking|}}
+                                <div class="top-three-badge {{#if (eq ranking.rank 1)}}first{{else if (eq ranking.rank 2)}}second{{else}}third{{/if}}">
+                                    {{getOrdinal ranking.rank}} o'rin
+                                </div>
+                                {{/with}}
+                                {{/if}}
+                                <div class="bar-value">
+                                    {{this.quantity}}ta
+                                    <br>
+                                    <small>{{this.percentage}}%</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bar-label">{{this.band}}</div>
                     </div>
                     {{/each}}
                 </div>
@@ -633,30 +898,105 @@
             <div class="chart-footer">
                 <div class="stats">
                     <div class="stat-item">
-                        <div class="stat-value">{{totalAll}}</div>
+                        <div class="stat-value">{{totalTikuv}}</div>
                         <div class="stat-label">Jami tikuv</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">{{totalDazmol}}</div>
+                        <div class="stat-label">Jami dazmol</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">{{totalUpakovka}}</div>
+                        <div class="stat-label">Jami upakovka</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">{{chartData.length}}</div>
                         <div class="stat-label">Bandlar soni</div>
                     </div>
+                    {{#with (maxChartData chartData) as |max|}}
                     <div class="stat-item">
-                        {{#if chartData}}
-                        {{#with (maxChartData chartData) as |max|}}
                         <div class="stat-value">{{max.band}}</div>
-                        <div class="stat-label">Eng ko'p tikuv</div>
-                        {{/with}}
-                        {{else}}
-                        <div class="stat-value">-</div>
-                        <div class="stat-label">Eng ko'p tikuv</div>
-                        {{/if}}
+                        <div class="stat-label">Bugun eng ko'p</div>
+                        <div style="font-size: 12px; color: #64748b; margin-top: 5px;">
+                            {{max.quantity}} ta ({{max.percentage}}%)
+                        </div>
                     </div>
+                    {{/with}}
                 </div>
-                <div class="chart-info">
+                <div style="color: #64748b; font-size: 14px;">
                     created by <span style="color: #e63946; font-weight: 600; font-style: italic;">Makhmudov</span>
                 </div>
             </div>
         </div>
+        
+        {{#if monthlyRankings.length}}
+        <div class="monthly-ranking-section">
+            <h2 style="color: #2c3e50; text-align: center; margin-bottom: 10px;">
+                <i class="fas fa-trophy"></i> Oylik eng yaxshi 3 ta band
+            </h2>
+            <p style="text-align: center; color: #64748b; margin-bottom: 30px;">
+                Bu oyning eng ko'p ishlagan tikuv bandlari
+            </p>
+            
+            <div class="celebration-text">
+                <i class="fas fa-star"></i> Tabriklaymiz! Quyidagi bandlar bu oyning g'oliblari!
+                <i class="fas fa-star"></i>
+            </div>
+            
+            <div class="ranking-cards">
+                {{#each monthlyRankings}}
+                <div class="ranking-card {{#if (eq this.rank 1)}}first{{else if (eq this.rank 2)}}second{{else}}third{{/if}}">
+                    <div class="ranking-medal">
+                        {{#if (eq this.rank 1)}}
+                        <i class="fas fa-trophy"></i>
+                        {{else if (eq this.rank 2)}}
+                        <i class="fas fa-medal"></i>
+                        {{else}}
+                        <i class="fas fa-award"></i>
+                        {{/if}}
+                    </div>
+                    <div class="ranking-title">
+                        {{getOrdinal this.rank}} o'rin
+                    </div>
+                    <div class="ranking-band">
+                        {{this.band}}
+                    </div>
+                    <div class="ranking-quantity">
+                        {{this.totalQuantity}} ta
+                    </div>
+                    <div class="ranking-label">
+                        Bu oyda jami ishlagan ish soni
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{/if}}
+        
+        {{#if monthlyStats.length}}
+        <div style="background: white; border-radius: 16px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 30px;">
+            <h3 style="color: #2c3e50; margin-bottom: 20px;">
+                <i class="fas fa-calendar-alt"></i> Barcha bandlar oylik statistika
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px;">
+                {{#each monthlyStats}}
+                {{#if (ne this._id "Dazmol bandi")}}
+                {{#if (ne this._id "Upakovka bandi")}}
+                <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                    <h4 style="color: #475569; margin-bottom: 10px; font-size: 16px;">{{this._id}}</h4>
+                    <div style="font-size: 24px; font-weight: bold; color: #2c3e50;">
+                        {{this.totalQuantity}} ta
+                    </div>
+                    <div style="font-size: 14px; color: #64748b; margin-top: 5px;">
+                        O'rtacha kunlik: {{divide this.totalQuantity 30}} ta
+                    </div>
+                </div>
+                {{/if}}
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        {{/if}}
     </div>
 
     <button class="close-fullscreen" id="closeFullscreenBtn" title="Exit fullscreen">
@@ -666,6 +1006,15 @@
     </button>
 
     <script>
+        // HBS helpers
+        Handlebars.registerHelper('gte', function(a, b) {
+            return a >= b;
+        });
+
+        Handlebars.registerHelper('lookup', function(obj, key) {
+            return obj && obj[key];
+        });
+
         // Fullscreen funksiyasi
         const fullscreenBtn = document.getElementById('fullscreenBtn');
         const closeFullscreenBtn = document.getElementById('closeFullscreenBtn');
@@ -701,32 +1050,64 @@
             }
         });
 
-        // Har bir band uchun high/low class qo'shish
+        // Har bir band uchun hover effekti
         document.addEventListener('DOMContentLoaded', () => {
-            const items = document.querySelectorAll('.item');
-            items.forEach(item => {
-                const value = parseFloat(item.style.getPropertyValue('--val'));
-                if (value < 30) {
-                    item.classList.add('low-percentage');
-                } else {
-                    item.classList.add('high-percentage');
+            const bars = document.querySelectorAll('.bar');
+            bars.forEach(bar => {
+                bar.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.boxShadow = '0 -4px 15px rgba(0, 0, 0, 0.2)';
+                    this.style.animationPlayState = 'paused';
+                });
+                
+                bar.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = '0 -2px 10px rgba(0, 0, 0, 0.1)';
+                    this.style.animationPlayState = 'running';
+                });
+            });
+
+            // Reytingdagi bandlarni alohida belgilash
+            const rankingItems = document.querySelectorAll('.chart-item[data-band]');
+            const monthlyRankings = {{{json monthlyRankings}}};
+            
+            rankingItems.forEach(item => {
+                const band = item.getAttribute('data-band');
+                const ranking = monthlyRankings.find(r => r.band === band);
+                
+                if (ranking) {
+                    const bar = item.querySelector('.bar');
+                    if (ranking.rank === 1) {
+                        bar.classList.add('winner');
+                        bar.style.setProperty('--bar-color', '#FFD700');
+                    } else if (ranking.rank === 2) {
+                        bar.style.setProperty('--bar-color', '#C0C0C0');
+                    } else if (ranking.rank === 3) {
+                        bar.style.setProperty('--bar-color', '#CD7F32');
+                    }
                 }
-                
-                // Hover effekti
-                item.addEventListener('mouseenter', function() {
-                    this.style.zIndex = '100';
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    this.style.zIndex = '1';
-                });
             });
         });
 
         // Auto-refresh grafik (har 30 sekundda)
         setInterval(() => {
-            window.location.reload();
+            fetch('/api/grafik-data')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('Grafik ma\'lumotlari yangilandi');
+                        // Sahifani yangilash
+                        location.reload();
+                    }
+                })
+                .catch(error => console.error('Xatolik:', error));
         }, 30000);
+
+        // Sayt yuklanganida animatsiya
+        window.addEventListener('load', () => {
+            document.body.style.transition = 'opacity 0.3s';
+            document.body.style.opacity = '1';
+        });
     </script>
 </body>
 </html>

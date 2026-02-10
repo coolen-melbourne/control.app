@@ -13,7 +13,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -54,10 +54,6 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
 
         .header {
@@ -76,10 +72,135 @@
             font-size: 1.1rem;
         }
 
-        .table-container {
-            overflow-x: auto;
+        /* Reyting section */
+        .ranking-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            margin-bottom: 30px;
+        }
+
+        .ranking-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .ranking-header h2 {
+            color: #1e293b;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .ranking-header .month {
+            color: #3b82f6;
+            font-weight: 700;
+            background: #f0f9ff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 1rem;
+        }
+
+        .ranking-cards {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .ranking-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            padding: 25px;
             border-radius: 12px;
-            border: 1px solid #e2e8f0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .ranking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .ranking-card.first {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000;
+        }
+
+        .ranking-card.second {
+            background: linear-gradient(135deg, #C0C0C0 0%, #A0A0A0 100%);
+            color: #000;
+        }
+
+        .ranking-card.third {
+            background: linear-gradient(135deg, #CD7F32 0%, #A0522D 100%);
+            color: #fff;
+        }
+
+        .ranking-medal {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .ranking-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ranking-band {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 15px 0;
+            color: inherit;
+        }
+
+        .ranking-quantity {
+            font-size: 36px;
+            font-weight: 900;
+            margin: 10px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .ranking-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .ranking-celebration {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(90deg, #e63946, #f4a261);
+            color: white;
+            border-radius: 10px;
+            font-weight: 600;
+            animation: celebration 2s infinite alternate;
+        }
+
+        @keyframes celebration {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.02); }
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            margin-top: 20px;
+            overflow-x: auto;
         }
 
         table {
@@ -144,7 +265,7 @@
         }
 
         @media (max-width: 768px) {
-            .container {
+            .table-container {
                 padding: 20px;
             }
             
@@ -154,6 +275,14 @@
             
             th, td {
                 padding: 12px;
+            }
+            
+            .ranking-cards {
+                flex-direction: column;
+            }
+            
+            .ranking-card {
+                min-width: 100%;
             }
         }
     </style>
@@ -171,6 +300,9 @@
             <i class="fas fa-database"></i> Ma'lumotlar Bazasi
         </a>
     </div>
+         <marquee behavior="scroll" direction="left" scrollamount="6">
+        🚨 Iltimos, tozalikni saqlang! 🚨
+    </marquee>
 
     <div class="container">
         <div class="header">
@@ -178,7 +310,69 @@
             <p>Barcha tikuv operatsiyalari tarixi ({{data.length}} ta yozuv)</p>
         </div>
 
+        {{#if monthlyRankings.length}}
+        <div class="ranking-section">
+            <div class="ranking-header">
+                <h2>
+                    <i class="fas fa-trophy"></i> Oylik eng yaxshi 3 ta band
+                    <span class="month">{{currentMonth}}</span>
+                </h2>
+                <p style="color: #64748b; font-size: 1rem;">
+                    Bu oyning eng ko'p ishlagan tikuv bandlari
+                </p>
+            </div>
+
+            <div class="ranking-celebration">
+                <i class="fas fa-star"></i> Tabriklaymiz! Quyidagi bandlar bu oyning g'oliblari!
+                <i class="fas fa-star"></i>
+            </div>
+
+            <div class="ranking-cards">
+                {{#each monthlyRankings}}
+                <div class="ranking-card {{#if (eq this.rank 1)}}first{{else if (eq this.rank 2)}}second{{else}}third{{/if}}">
+                    <div class="ranking-medal">
+                        {{#if (eq this.rank 1)}}
+                        <i class="fas fa-trophy"></i>
+                        {{else if (eq this.rank 2)}}
+                        <i class="fas fa-medal"></i>
+                        {{else}}
+                        <i class="fas fa-award"></i>
+                        {{/if}}
+                    </div>
+                    <div class="ranking-title">
+                        {{#if (eq this.rank 1)}}
+                        BIRINCHI O'RIN
+                        {{else if (eq this.rank 2)}}
+                        IKINCHI O'RIN
+                        {{else}}
+                        UCHINCHI O'RIN
+                        {{/if}}
+                    </div>
+                    <div class="ranking-band">
+                        {{this.band}}
+                    </div>
+                    <div class="ranking-quantity">
+                        {{this.totalQuantity}} ta
+                    </div>
+                    <div class="ranking-label">
+                        Bu oyda jami ishlagan ish soni
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{else}}
+        <div class="ranking-section" style="text-align: center; padding: 40px;">
+            <i class="fas fa-chart-line" style="font-size: 48px; color: #cbd5e1; margin-bottom: 20px;"></i>
+            <h3 style="color: #64748b;">Hozircha oylik reyting mavjud emas</h3>
+            <p style="color: #94a3b8;">Oy oxirida eng yaxshi 3 ta band aniqlanadi</p>
+        </div>
+        {{/if}}
+
         <div class="table-container">
+            <h3 style="margin-bottom: 20px; color: #1e293b;">
+                <i class="fas fa-history"></i> Barcha operatsiyalar
+            </h3>
             <table>
                 <thead>
                     <tr>
@@ -217,6 +411,36 @@
             </table>
         </div>
 
+        {{#if monthlyData.length}}
+        <div class="table-container" style="margin-top: 30px;">
+            <h3 style="margin-bottom: 20px; color: #1e293b;">
+                <i class="fas fa-chart-line"></i> Kunlik statistika
+            </h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sana</th>
+                        <th>Jami tikuv</th>
+                        <th>Upakovka</th>
+                        <th>Dazmol</th>
+                        <th>Jami operatsiyalar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each monthlyData}}
+                    <tr>
+                        <td>{{this._id}}</td>
+                        <td><strong>{{this.totalSewing}} ta</strong></td>
+                        <td>{{this.totalUpakovka}} ta</td>
+                        <td>{{this.totalDazmol}} ta</td>
+                        <td>{{this.count}} ta</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{/if}}
+
         <div class="footer">
             created by <span>Makhmudov</span> • Jami yozuvlar: <span>{{data.length}} ta</span>
         </div>
@@ -234,6 +458,23 @@
             if (td.textContent.includes('T')) {
                 td.textContent = formatDate(td.textContent);
             }
+        });
+
+        // Reyting kartalari uchun hover effekti
+        document.addEventListener('DOMContentLoaded', () => {
+            const rankingCards = document.querySelectorAll('.ranking-card');
+            rankingCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const medal = this.querySelector('.ranking-medal i');
+                    medal.style.transform = 'scale(1.2)';
+                    medal.style.transition = 'transform 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    const medal = this.querySelector('.ranking-medal i');
+                    medal.style.transform = 'scale(1)';
+                });
+            });
         });
     </script>
 </body>
